@@ -1,97 +1,46 @@
-import random, time, os
+import random
+import time
+from colorama import Fore, Back, Style
+
 def main():
-	print("Welcome to Rock Paper Scissors")
-	time.sleep(1)
-	norep = input("Enter to continue")
-	playGame = True
-	botscore = 0
-	userscore = 0
-	if playGame:
-		while True: 
-			time.sleep(1)
-			for x in range (0,3):
-				cI = random.randint(1,3)
-			if (cI == 1):
-				cpuChoice = "Rock"
-				userChoice = input("Rock, Paper or Scissors")
-				if (userChoice == "rock" or userChoice == "Rock"):
-					print("")
-					print("You chose Rock")
-					print("Opponent chose Rock")
-					time.sleep(2)
-					print("You tied")
-				if (userChoice == "paper" or userChoice == "Paper"):
-					print("")
-					print("You chose Paper")
-					print("Opponent chose Rock")
-					time.sleep(2)
-					print("You won")
-					userscore = userscore + 1
-				if (userChoice == "scissors" or userChoice == "Scissors"):
-					print("")
-					print("You chose Scissors")
-					print("Opponent chose Rock")
-					time.sleep(2)
-					print("You lost.")
-					botscore = botscore + 1
+    print(Fore.CYAN + "Welcome to Rock Paper Scissors!" + Style.RESET_ALL)
+    time.sleep(1)
+    input("Press Enter to continue")
+    
+    play_game = True
+    bot_score = 0
+    user_score = 0
 
-			if (cI == 2):
-				cpuChoice = "Paper"
-				userChoice = input("Rock, Paper or Scissors")
-				if (userChoice == "rock" or userChoice == "Rock"):
-					print("")
-					print("You chose Rock")
-					print("Opponent chose Paper")
-					time.sleep(2)
-					print("You lost")
-					botscore = botscore + 1
-				if (userChoice == "paper" or userChoice == "Paper"):
-					print("")
-					print("You chose Paper")
-					print("Opponent chose Paper")
-					time.sleep(2)
-					print("You tied")
-				if (userChoice == "scissors" or userChoice == "Scissors"):
-					print("")
-					print("You chose Scissors")
-					print("Opponent chose Paper")
-					time.sleep(2)
-					print("You won")
-					userscore = userscore + 1
+    while play_game:
+        time.sleep(1)
+        cpu_choice = random.choice(["Rock", "Paper", "Scissors"])
+        user_choice = input(Fore.GREEN + "Rock, Paper or Scissors? " + Style.RESET_ALL).capitalize()
 
+        print(f"\nYou chose {user_choice}")
+        print(f"Opponent chose {cpu_choice}")
+        time.sleep(1)
 
-			if (cI == 3):
-				cpuChoice = "Scissors"
-				userChoice = input("Rock, Paper or Scissors")
-				if (userChoice == "rock" or userChoice == "Rock"):
-					print("")
-					print("You chose Rock")
-					print("Opponent chose Scissors")
-					time.sleep(2)
-					print("You won")
-					userscore = userscore + 1
-				if (userChoice == "paper" or userChoice == "Paper"):
-					print("")
-					print("You chose Paper")
-					print("Opponent chose Scissors")
-					time.sleep(2)
-					print("You lost")
-					botscore = botscore + 1
-				if (userChoice == "scissors" or userChoice == "Scissors"):
-					print("")
-					print("You chose Scissors")
-					print("Opponent chose Scissors")
-					time.sleep(2)
-					print("You tied")
-			print("Leaderboard")
-			print("Your score: " + str(userscore))
-			print("Opponent score: " + str(botscore))
-			keepPlaying = input("Do you want to play again? y/n")
-			if keepPlaying == "y":
-				 
-				playGame = True
-			else:
-				print("Okay bye")
-				playGame = False
-				break
-main()
+        if user_choice == cpu_choice:
+            print(Fore.YELLOW + "You tied!" + Style.RESET_ALL)
+        elif (
+            (user_choice == "Rock" and cpu_choice == "Scissors") or
+            (user_choice == "Paper" and cpu_choice == "Rock") or
+            (user_choice == "Scissors" and cpu_choice == "Paper")
+        ):
+            print(Fore.GREEN + "You won!" + Style.RESET_ALL)
+            user_score += 1
+        else:
+            print(Fore.RED + "You lost." + Style.RESET_ALL)
+            bot_score += 1
+
+        print("\nLeaderboard")
+        print(f"Your score: {user_score}")
+        print(f"Opponent score: {bot_score}")
+        
+        play_again = input("\nPlay again? (y/n): ").lower()
+        if play_again != "y":
+            print(Fore.CYAN + "Okay, bye!" + Style.RESET_ALL)
+            play_game = False
+
+if __name__ == "__main__":
+    main()
